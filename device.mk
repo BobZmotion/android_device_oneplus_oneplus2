@@ -244,6 +244,12 @@ PRODUCT_PACKAGES += \
     sensors.msm8994 \
     sensors.ssc.wrapper
 
+# Sound configs
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/Heaven.ogg:system/media/audio/notifications/Heaven.ogg \
+    $(LOCAL_PATH)/prebuilt/somebodys.ogg:system/media/audio/ringtones/somebodys.ogg
+
+# Thermal config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf
 
