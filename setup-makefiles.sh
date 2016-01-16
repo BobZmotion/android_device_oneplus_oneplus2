@@ -68,9 +68,6 @@ PRODUCT_PACKAGES += \\
     qcrilhook
 
 PRODUCT_PACKAGES += \\
-    libmm-abl
-
-PRODUCT_PACKAGES += \\
     libloc_api_v02 \\
     libloc_ds_api
 
@@ -222,10 +219,10 @@ LOCAL_PROPRIETARY_MODULE := true
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
-LOCAL_MODULE := libmm-abl
+LOCAL_MODULE := libTimeService
 LOCAL_MODULE_OWNER := $VENDOR
-LOCAL_SRC_FILES_64 := proprietary/vendor/lib64/libmm-abl.so
-LOCAL_SRC_FILES_32 := proprietary/vendor/lib/libmm-abl.so
+LOCAL_SRC_FILES_64 := proprietary/vendor/lib64/libTimeService.so
+LOCAL_SRC_FILES_32 := proprietary/vendor/lib/libTimeService.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_SUFFIX := .so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
