@@ -179,16 +179,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/fpc1020.kl:system/usr/keylayout/fpc1020.kl \
     $(LOCAL_PATH)/keylayout/synaptics.kl:system/usr/keylayout/synaptics.kl
 
-# Keyhandler
-PRODUCT_PACKAGES += \
-    ConfigPanel \
-    com.cyanogenmod.keyhandler
-
-PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
-
-# never dexopt the keyhandler
-$(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
-
 # Keymaster
 PRODUCT_PACKAGES += \
     keystore.msm8994
@@ -285,3 +275,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.boot-dex2oat-threads \
     dalvik.vm.dex2oat-threads=2 \
     dalvik.vm.image-dex2oat-threads=4
+
+# Inherit from oppo-common
+$(call inherit-product, device/oppo/common/common.mk)

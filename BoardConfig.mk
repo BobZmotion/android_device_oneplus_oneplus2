@@ -20,6 +20,9 @@
 # definition file).
 #
 
+# Inherit from oppo-common
+-include device/oppo/common/BoardConfigCommon.mk
+
 TARGET_OTA_ASSERT_DEVICE := OnePlus2,oneplus2
 
 BOARD_VENDOR := oneplus
@@ -68,6 +71,7 @@ TARGET_CUSTOM_DTBTOOL := dtbToolOP2
 
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QC_TIME_SERVICES := true
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -128,9 +132,6 @@ TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 # Malloc
 MALLOC_IMPL := dlmalloc
 
-# Power
-TARGET_POWERHAL_VARIANT := qcom
-
 # RIL
 TARGET_RIL_VARIANT := caf
 
@@ -174,9 +175,6 @@ BOARD_FLASH_BLOCK_SIZE := 262144
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Malloc
-MALLOC_IMPL := dlmalloc
-
 # Recovery
 TARGET_RECOVERY_FSTAB := device/oneplus/oneplus2/rootdir/etc/fstab.qcom
 
@@ -219,14 +217,7 @@ BOARD_SEPOLICY_UNION += \
     genfs_contexts \
     property_contexts
 
-# Time services
-BOARD_USES_QC_TIME_SERVICES := true
-
-# CM Hardware
-BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS += \
-    device/oneplus/oneplus2/cmhw \
-    hardware/cyanogen/cmhw
+# Tap tp wake
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # inherit from the proprietary version
