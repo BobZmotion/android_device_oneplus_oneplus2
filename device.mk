@@ -41,21 +41,12 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     init.qcom.power.rc \
     init.qcom.rc \
-    init.qcom.sh \
     init.qcom.usb.rc \
-    init.qcom.usb.sh \
+    init.recovery.qcom.rc \
     ueventd.qcom.rc
 
-# Qcom init scripts for /etc
 PRODUCT_PACKAGES += \
-    init.qcom.bt.sh \
-    init.qcom.fm.sh \
-    init.qcom.ril.sh \
-    init.qcom.uicc.sh
-
-# RIL
-PRODUCT_PACKAGES += \
-    libcnefeatureconfig
+    init.qcom.bt.sh
 
 # Permissions
 PRODUCT_COPY_FILES += \
