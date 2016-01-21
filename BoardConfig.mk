@@ -180,7 +180,6 @@ TARGET_RECOVERY_FSTAB := device/oneplus/oneplus2/rootdir/etc/fstab.qcom
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-
 BOARD_SEPOLICY_DIRS += device/oneplus/oneplus2/sepolicy
 
 BOARD_SEPOLICY_UNION += \
@@ -217,7 +216,10 @@ BOARD_SEPOLICY_UNION += \
     genfs_contexts \
     property_contexts
 
-# Tap tp wake
+# CM hardware
+BOARD_HARDWARE_CLASS += device/oneplus/oneplus2/cmhw
+
+# Tap to wake
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # inherit from the proprietary version
