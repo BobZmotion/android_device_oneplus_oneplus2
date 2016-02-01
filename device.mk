@@ -79,11 +79,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-# Adreno driver dependencies
-PRODUCT_PACKAGES += \
-    libboringssl-compat \
-    libstlport
-
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
@@ -119,6 +114,12 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing
+
+# Camera
+PRODUCT_PACKAGES += \
+    mm-qcamera-app \
+    libstlport \
+    Snap
 
 # Charger
 PRODUCT_PACKAGES += \
