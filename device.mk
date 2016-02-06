@@ -226,7 +226,8 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    libcamera_shim
+    libcamera_shim \
+    Snap
 
 # Power
 PRODUCT_PACKAGES += \
