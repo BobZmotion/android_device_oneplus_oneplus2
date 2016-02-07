@@ -42,8 +42,6 @@ vendor/lib/libbtnv.so
 # Camera
 bin/mm-qcamera-app
 bin/mm-qcamera-daemon
-lib64/libopcamera.so
-lib64/libopcameralib.so
 lib/hw/camera.msm8994.so
 lib/libFNVfbEngineLib.so
 lib/libmm-qcamera.so
@@ -219,7 +217,7 @@ vendor/lib/librpmb.so
 vendor/lib/libssd.so
 vendor/lib/libwvdrm_L1.so
 vendor/lib/libwvm.so
-vendor/lib/libWVStreamControlAPI_L3.so
+vendor/lib/libWVStreamControlAPI_L1.so
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
@@ -237,36 +235,52 @@ etc/firmware/fingerprints.mdt
 
 # GPS
 bin/location-mq
+bin/loc_launcher
+bin/lowi-server
+bin/quipc_igsn
+bin/xtwifi-client
+bin/xtwifi-inet-agent
 etc/permissions/com.qualcomm.location.xml
 -lib64/libloc_api_v02.so
 -lib64/libloc_ds_api.so
 -lib/libloc_api_v02.so
 -lib/libloc_ds_api.so
 -priv-app/com.qualcomm.location/com.qualcomm.location.apk
+vendor/bin/slim_ap_daemon
 vendor/lib64/hw/flp.default.so
-vendor/lib64/libalarmservice_jni.so
 vendor/lib64/libgeofence.so
+vendor/lib64/libgdtap.so
 vendor/lib64/libizat_core.so
 vendor/lib64/liblbs_core.so
 vendor/lib64/liblocationservice.so
 vendor/lib64/liblowi_client.so
 vendor/lib64/libquipc_os_api.so
+vendor/lib64/libquipc_ulp_adapter.so
 vendor/lib64/libulp2.so
 vendor/lib64/libxtadapter.so
 vendor/lib64/libxtwifi_ulp_adaptor.so
 vendor/lib64/libxtwifi_zpp_adaptor.so
+vendor/lib64/libalarmservice_jni.so
+vendor/lib64/libasn1cper.so
+vendor/lib64/libasn1crt.so
+vendor/lib64/libasn1crtx.so
 vendor/lib/hw/flp.default.so
-vendor/lib/libalarmservice_jni.so
 vendor/lib/libgeofence.so
+vendor/lib/libgdtap.so
 vendor/lib/libizat_core.so
 vendor/lib/liblbs_core.so
 vendor/lib/liblocationservice.so
 vendor/lib/liblowi_client.so
 vendor/lib/libquipc_os_api.so
+vendor/lib/libquipc_ulp_adapter.so
 vendor/lib/libulp2.so
 vendor/lib/libxtadapter.so
 vendor/lib/libxtwifi_ulp_adaptor.so
 vendor/lib/libxtwifi_zpp_adaptor.so
+vendor/lib/libalarmservice_jni.so
+vendor/lib/libasn1cper.so
+vendor/lib/libasn1crt.so
+vendor/lib/libasn1crtx.so
 
 # Graphics
 vendor/lib64/libC2D2.so
@@ -356,7 +370,11 @@ etc/firmware/venus.mdt
 bin/energy-awareness
 bin/msm_irqbalance
 bin/perfd:vendor/bin/perfd
+vendor/lib64/libqti-at.so
+vendor/lib64/libqti-gt.so
 vendor/lib64/libqti-perfd-client.so
+vendor/lib/libqti-at.so
+vendor/lib/libqti-gt.so
 vendor/lib/libqti-perfd-client.so
 
 # Peripheral manager
@@ -396,6 +414,7 @@ vendor/lib64/libqmi_csi.so
 vendor/lib64/libqmi_encdec.so
 -vendor/lib64/libqmiservices.so
 vendor/lib64/libsmemlog.so
+vendor/lib64/libconnctrl.so
 -vendor/lib/libdiag.so
 vendor/lib/libdsi_netctrl.so
 -vendor/lib/libdsutils.so
@@ -412,8 +431,10 @@ vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
 -vendor/lib/libqmiservices.so
 vendor/lib/libsmemlog.so
+vendor/lib/libconnctrl.so
 
 # Radio
+-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 -app/shutdownlistener/shutdownlistener.apk
 bin/netmgrd
 bin/qmuxd
@@ -463,4 +484,3 @@ bin/time_daemon
 -vendor/lib64/libTimeService.so
 -vendor/lib/libtime_genoff.so
 -vendor/lib/libTimeService.so
-
