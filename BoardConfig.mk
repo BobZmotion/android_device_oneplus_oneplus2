@@ -174,7 +174,6 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2684354560
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 59047394304
 BOARD_FLASH_BLOCK_SIZE := 262144
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := device/oneplus/oneplus2/rootdir/etc/fstab.qcom
@@ -182,40 +181,6 @@ TARGET_RECOVERY_FSTAB := device/oneplus/oneplus2/rootdir/etc/fstab.qcom
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += device/oneplus/oneplus2/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    adspd.te \
-    atfwd.te \
-    bluetooth_loader.te \
-    bridge.te \
-    camera.te \
-    device.te \
-    file.te \
-    gsiffd.te \
-    healthd.te \
-    init.te \
-    init_shell.te \
-    irsc_util.te \
-    mdm_helper.te \
-    mediaserver.te \
-    mpdecision.te \
-    mm-qcamerad.te \
-    qmux.te \
-    qseecomd.te \
-    rild.te \
-    rmt_storage.te \
-    ueventd.te \
-    sensors.te \
-    surfaceflinger.te \
-    system_app.te \
-    system_server.te \
-    tee.te \
-    wcnss_service.te \
-    ueventd.te \
-    usb_uicc_daemon.te \
-    file_contexts \
-    genfs_contexts \
-    property_contexts
 
 # CM hardware
 BOARD_HARDWARE_CLASS += device/oneplus/oneplus2/cmhw
