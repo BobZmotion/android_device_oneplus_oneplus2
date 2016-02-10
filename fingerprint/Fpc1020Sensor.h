@@ -179,4 +179,3 @@ class Fpc1020Sensor {
 };
 
 #endif // FINGERPRINT_FPC1020_SENSOR_H
-

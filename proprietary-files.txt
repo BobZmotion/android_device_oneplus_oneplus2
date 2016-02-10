@@ -370,11 +370,7 @@ etc/firmware/venus.mdt
 bin/energy-awareness
 bin/msm_irqbalance
 bin/perfd:vendor/bin/perfd
-vendor/lib64/libqti-at.so
-vendor/lib64/libqti-gt.so
 vendor/lib64/libqti-perfd-client.so
-vendor/lib/libqti-at.so
-vendor/lib/libqti-gt.so
 vendor/lib/libqti-perfd-client.so
 
 # Peripheral manager
@@ -414,7 +410,6 @@ vendor/lib64/libqmi_csi.so
 vendor/lib64/libqmi_encdec.so
 -vendor/lib64/libqmiservices.so
 vendor/lib64/libsmemlog.so
-vendor/lib64/libconnctrl.so
 -vendor/lib/libdiag.so
 vendor/lib/libdsi_netctrl.so
 -vendor/lib/libdsutils.so
@@ -431,7 +426,6 @@ vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
 -vendor/lib/libqmiservices.so
 vendor/lib/libsmemlog.so
-vendor/lib/libconnctrl.so
 
 # Radio
 -app/qcrilmsgtunnel/qcrilmsgtunnel.apk

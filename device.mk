@@ -15,7 +15,6 @@
 #
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
@@ -62,6 +61,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.hdmi.cec.xml:system/etc/permissions/android.hardware.hdmi.cec.xml \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
@@ -206,16 +206,13 @@ PRODUCT_PACKAGES += \
     libOmxSwVencMpeg4 \
     libOmxSwVencHevc \
     libOmxVdec \
+    libOmxVdecHevc \
     libOmxVenc \
     libOmxVidcCommon \
     libqcmediaplayer \
     libstagefrighthw \
-    libstagefright_soft_flacdec
-
-# Camera
-PRODUCT_PACKAGES += \
-    libcamera_shim \
-    Snap
+    libstagefright_soft_flacdec \
+    qcmediaplayer
 
 # Power
 PRODUCT_PACKAGES += \
@@ -267,12 +264,6 @@ PRODUCT_PACKAGES += \
     hostapd_default.conf \
     hostapd.accept \
     hostapd.deny
-
-# limit dex2oat threads to improve thermals
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.boot-dex2oat-threads \
-    dalvik.vm.dex2oat-threads=2 \
-    dalvik.vm.image-dex2oat-threads=4
 
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)

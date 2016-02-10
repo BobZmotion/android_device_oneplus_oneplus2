@@ -172,119 +172,6 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-on post-fs-data
-    # msm specific files that need to be created on /data
-    mkdir /data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
-    mkdir /persist/data/sfs 0700 system system
-    mkdir /persist/data/tz 0700 system system
-    mkdir /data/usf 0700 system system
-    mkdir /data/misc/sfs/sfs 0700 system system
-    mkdir /data/misc/sfs/tz 0700 system system
-    mkdir /data/misc/dts 0770 media audio
-    mkdir /data/misc/fp 0700 system system
-    mkdir /data/oemnvitems 0771 radio radio
-
-    # Create directory for TZ Apps
-    mkdir /data/misc/qsee 0770 system system
-
-    # We will remap this as /mnt/sdcard with the sdcard fuse tool
-    mkdir /data/misc/camera 0770 camera camera
-
-    # Create folder for mm-qcamera-daemon
-    mkdir /data/camera 0770 media camera
-
-    mkdir /data/misc/ipa 0700 net_admin net_admin
-
-    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
-
-    # Create the directories used by the Wireless subsystem
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-    mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-
-    # Create the directories used by CnE subsystem
-    mkdir /data/connectivity 0771 system system
-    chown system system /data/connectivity
-
-    # Create the directories used by DPM subsystem
-    mkdir /data/dpm 0771 system system
-    chown system system /data/dpm
-
-    mkdir /data/dpm/fdMgr 0771 system system
-    chown system system /data/dpm/fdMgr
-
-    mkdir /data/dpm/nsrm 0771 system system
-    chown system system /data/dpm/nsrm
-
-    # Create directory used by audio subsystem
-    mkdir /data/misc/audio 0770 audio audio
-
-    # Create directory for audio delta files
-    mkdir /data/misc/audio/acdbdata 0770 media audio
-    mkdir /data/misc/audio/acdbdata/delta 0770 media audio
-
-    # Create directory used by the DASH client
-    mkdir /data/misc/dash 0770 media audio
-
-    # Create directory used by display clients
-    mkdir /data/misc/display 0770 system graphics
-    mkdir /persist/display 0770 system graphics
-
-    # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
-    # We chown/chmod /persist again so because mount is run as root + defaults
-    chown system system /persist
-    chmod 0771 /persist
-    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
-    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
-
-    # Chown polling nodes as needed from UI running on system server
-    chown system system /sys/devices/platform/msm_sdcc.1/polling
-    chown system system /sys/devices/platform/msm_sdcc.2/polling
-    chown system system /sys/devices/platform/msm_sdcc.3/polling
-    chown system system /sys/devices/platform/msm_sdcc.4/polling
-
-    # Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
-    mkdir /data/system 0775 system system
-    #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
-
-    # Create directories for Location services
-    mkdir /data/misc/location 0770 gps gps
-    mkdir /data/misc/location/mq 0770 gps gps
-    mkdir /data/misc/location/xtwifi 0770 gps gps
-    mkdir /data/misc/location/gpsone_d 0770 system gps
-    mkdir /data/misc/location/quipc 0770 gps system
-    mkdir /data/misc/location/gsiff 0770 gps gps
-
-    # Create directory from IMS services
-    mkdir /data/shared 0755
-    chown system system /data/shared
-
-    # Create directory for FOTA
-    mkdir /data/fota 0771
-    chown system system /data/fota
-
-    # Create directory for hostapd
-    mkdir /data/hostapd 0770 system wifi
-
-    # Create /data/time folder for time-services
-    mkdir /data/time/ 0700 system system
-
-    mkdir /data/audio/ 0770 media audio
-
-    # Create a folder for audio delta files
-    mkdir /data/audio/acdbdata 0770 media audio
-    mkdir /data/audio/acdbdata/delta 0770 media audio
-
-    setprop vold.post_fs_data_done 1
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -295,12 +182,6 @@ on boot
     start rmt_storage
     start rfs_access
     start sensors
-
-    # Update foreground cpuset now that processors are up
-    write /dev/cpuset/foreground/cpus 0-7
-    write /dev/cpuset/foreground/boost/cpus 4-7
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-3
 
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
@@ -346,28 +227,6 @@ on boot
     write /proc/sys/net/core/rmem_max  8388608
     write /proc/sys/net/core/wmem_max  8388608
 
-    #To allow interfaces to get v6 address when tethering is enabled
-    write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet4/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet5/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet6/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet7/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio4/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio5/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio6/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_sdio7/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet_usb3/accept_ra 2
-
     # To prevent out of order acknowledgements from making
     # connection tracking to treat them as not belonging to
     # the connection they belong to.
@@ -383,7 +242,7 @@ on boot
     chown system graphics /sys/class/graphics/fb0/idle_time
     chmod 0664 /sys/class/graphics/fb0/idle_time
 
-    # setup permissions for fb1 related nodes
+    # setup permissions for fb0 related nodes
     chown system graphics /sys/class/graphics/fb0/idle_time
     chown system graphics /sys/class/graphics/fb0/dynamic_fps
     chown system graphics /sys/class/graphics/fb0/dyn_pu
@@ -396,6 +255,7 @@ on boot
     chmod 0664 /sys/devices/virtual/graphics/fb0/modes
     chmod 0664 /sys/devices/virtual/graphics/fb0/mode
 
+    # setup permissions for fb1 related nodes
     chown system graphics /sys/class/graphics/fb1/hpd
     chown system graphics /sys/class/graphics/fb1/res_info
     chown system graphics /sys/class/graphics/fb1/vendor_name
@@ -618,15 +478,15 @@ service per_mgr /system/bin/pm-service
     user system
     group system net_raw
 
-service fingerprintd /system/bin/fingerprintd
-    class late_start
-    user system
-
 service per_proxy /system/bin/pm-proxy
     class core
     user system
     group system net_raw
     disabled
+
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
 
 on property:init.svc.per_mgr=running
     start per_proxy
@@ -634,7 +494,7 @@ on property:init.svc.per_mgr=running
 on property:sys.shutdown.requested=*
     stop per_proxy
 
-service thermal-engine /system/bin/thermal-engine
+service thermal-engine /system/vendor/bin/thermal-engine
     class main
     user root
     socket thermal-send-client stream 0666 system system
@@ -722,7 +582,6 @@ on property:init.svc.surfaceflinger=running
 on property:vold.decrypt=trigger_restart_framework
     start config_bt_addr
     start config_bluetooth
-    start wcnss-service
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
@@ -817,18 +676,6 @@ service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     group bluetooth net_bt_admin misc net_bt_stack qcom_diag net_bt
     disabled
     oneshot
-    
-service port-bridge /system/bin/port-bridge /dev/mhi_pipe_32 /dev/ttyGS0
-    class main
-    user radio system
-    group radio system inet
-    disabled
-
-service port-bridge /system/bin/port-bridge /dev/mhi_pipe_32 /dev/ttyGS0
-    class main
-    user radio system
-    group radio system inet
-    disabled
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
@@ -938,12 +785,6 @@ service cnss_diag /system/bin/cnss_diag --q
     group root
     disabled
     oneshot
-    
-service cnss-daemon /system/bin/cnss-daemon -n -l
-    class late_start
-
-service cnss-daemon /system/bin/cnss-daemon -n -l
-    class late_start
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
     class late_start
@@ -1023,29 +864,6 @@ service ssr_diag /system/bin/ssr_diag
     user system
     group system
     disabled
-
-# Define fastmmi
-service fastmmi /system/bin/mmi
-    user root
-    group root
-    disabled
-
-on mmi
-    start fastmmisrv
-
-on ffbm
-    trigger early-fs
-    trigger fs
-    trigger post-fs
-    trigger post-fs-data
-
-    # Load properties from /system/ + /factory after fs mount. Place
-    # this in another action so that the load will be scheduled after the prior
-    # issued fs triggers have completed.
-    trigger load_all_props_action
-
-    trigger early-boot
-    trigger mmi
 
 service hvdcp /system/bin/hvdcp
     class core
