@@ -25,6 +25,8 @@
 
 TARGET_OTA_ASSERT_DEVICE := OnePlus2,oneplus2
 
+PLATFORM_PATH := device/oneplus/oneplus2
+
 BOARD_VENDOR := oneplus
 
 # Bootloader
@@ -46,8 +48,9 @@ TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
+TARGET_2ND_CPU_VARIANT := cortex-a53
 
+TARGET_CPU_CORTEX_A53 := true
 TARGET_USES_64_BIT_BINDER := true
 
 # Cpusets
@@ -82,7 +85,7 @@ USE_CUSTOM_AUDIO_POLICY := 1
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_HAS_QCA_BT_ROME := true
 QCOM_BT_USE_BTNV := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/oneplus/oneplus2/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_PATH)/bluetooth
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -91,8 +94,11 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API := true
+TARGET_USES_OVERLAY := true
 TARGET_USES_C2D_COMPOSITION := true
 USE_OPENGL_RENDERER := true
+TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
@@ -100,24 +106,28 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 HAVE_ADRENO_SOURCE:= false
 OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 
+# GPS
+USE_DEVICE_SPECIFIC_GPS := true
+USE_DEVICE_SPECIFIC_LOC_API := true
+
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
-BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/oneplus/oneplus2/charger/images
-
-# Font
-EXTENDED_FONT_FOOTPRINT := true
+BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(PLATFORM_PATH)/charger/images
 
 # Include path
-TARGET_SPECIFIC_HEADER_PATH := device/oneplus/oneplus2/include
+TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
 # Init
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
-TARGET_LIBINIT_DEFINES_FILE := device/oneplus/oneplus2/init/init_oneplus2.cpp
+TARGET_LIBINIT_DEFINES_FILE := $(PLATFORM_PATH)/init/init_oneplus2.cpp
 
 # Keystore
 TARGET_PROVIDES_KEYMASTER := true
+
+# Lights
+TARGET_PROVIDES_LIBLIGHT := true
 
 # RIL
 TARGET_RIL_VARIANT := caf
@@ -129,14 +139,20 @@ TARGET_NO_RPC := true
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QC_TIME_SERVICES := true
 
+# Alarm
+BOARD_HAVE_TIMERFD_POWEROFF_ALARM := true
+
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+
+# CNE and DPM
+BOARD_USES_QCNE := true
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
   ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
-    ifeq ($(WITH_DEXPREOPT_BOOT_IMG_ONLY),)
-      WITH_DEXPREOPT_BOOT_IMG_ONLY := true
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
     endif
   endif
 endif
@@ -149,11 +165,21 @@ BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
-TARGET_USES_WCNSS_CTRL := true
-TARGET_USES_QCOM_WCNSS_QMI := true
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
+WIFI_DRIVER_FW_PATH_P2P := "p2p"
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
+WIFI_DRIVER_MODULE_NAME := "wlan"
+TARGET_USES_WCNSS_CTRL := true
+TARGET_USES_QCOM_WCNSS_QMI := true
+HOSTAPD_VERSION := VER_0_8_X
 WPA_SUPPLICANT_VERSION := VER_0_8_X
+
+TARGET_KERNEL_MODULES += WLAN_MODULES
+WLAN_MODULES:
+	mkdir -p $(KERNEL_MODULES_OUT)/qca_cld
+	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
+	ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(TARGET_OUT)/lib/modules/wlan.ko
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
@@ -165,14 +191,14 @@ BOARD_FLASH_BLOCK_SIZE := 262144
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := device/oneplus/oneplus2/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += device/oneplus/oneplus2/sepolicy
+BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
 # CM hardware
-BOARD_HARDWARE_CLASS += device/oneplus/oneplus2/cmhw
+BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
 
 # Tap to wake
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
