@@ -64,6 +64,11 @@ persist.speaker.prot.enable=false
 persist.spkr.cal.duration=0
 qcom.hw.aac.encoder=true
 
+# limit dex2oat threads to improve thermals
+dalvik.vm.boot-dex2oat-threads
+dalvik.vm.dex2oat-threads=2
+dalvik.vm.image-dex2oat-threads=4
+
 # GPS
 persist.gps.qc_nlp_in_use=1
 persist.loc.nlp_name=com.qualcomm.location
