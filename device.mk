@@ -131,6 +131,11 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
+# Fingerprint sensor
+PRODUCT_PACKAGES += \
+    fingerprint.msm8994 \
+    fingerprintd
+
 # GPS
 PRODUCT_PACKAGES += \
     gps.msm8994 \
