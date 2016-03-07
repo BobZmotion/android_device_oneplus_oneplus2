@@ -340,12 +340,6 @@ on boot
     start rmt_storage
     start rfs_access
 
-    # Update foreground cpuset now that processors are up
-    write /dev/cpuset/foreground/cpus 0-7
-    write /dev/cpuset/foreground/boost/cpus 4-7
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-3
-
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt /sys/class/rfkill/rfkill0/state
@@ -505,6 +499,7 @@ service laserinit /system/bin/laser_init
     user root
     group root
     oneshot
+    writepid /dev/cpuset/system-background/tasks
 
 service qseecomd /system/bin/qseecomd
     class core
@@ -515,6 +510,7 @@ service perfd /system/vendor/bin/perfd
     class main
     user root
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 service per_mgr /system/bin/pm-service
     class core
@@ -1046,3 +1042,4 @@ service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqb
     user root
     group root
     disable
+    writepid /dev/cpuset/system-background/tasks

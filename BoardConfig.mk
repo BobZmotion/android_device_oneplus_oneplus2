@@ -53,9 +53,6 @@ TARGET_2ND_CPU_VARIANT := cortex-a53.a57
 
 TARGET_USES_64_BIT_BINDER := true
 
-# Cpusets
-ENABLE_CPUSETS := true
-
 # Kernel
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 boot_cpus=0-5
 BOARD_KERNEL_BASE := 0x00000000
@@ -105,6 +102,9 @@ BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(PLATFORM_PATH)/charger/images
 # CNE and DPM
 TARGET_LDPRELOAD := libNimsWrap.so
 BOARD_USES_QCNE := true
+
+# Cpusets
+ENABLE_CPUSETS := true
 
 # GPS
 TARGET_NO_RPC := true
