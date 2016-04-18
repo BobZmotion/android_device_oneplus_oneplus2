@@ -138,6 +138,9 @@ TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 TARGET_LIBINIT_DEFINES_FILE := $(PLATFORM_PATH)/init/init_oneplus2.cpp
 
+# Java version
+EXPERIMENTAL_USE_JAVA8 := true
+
 # Keystore
 TARGET_PROVIDES_KEYMASTER := true
 
