@@ -81,7 +81,7 @@ persist.sys.dpmd.nsrm=3
 #persist.dpm.loglevel=7825
 
 # limit dex2oat threads to improve thermals
-dalvik.vm.boot-dex2oat-threads
+dalvik.vm.boot-dex2oat-threads=4
 dalvik.vm.dex2oat-threads=2
 dalvik.vm.image-dex2oat-threads=4
 
