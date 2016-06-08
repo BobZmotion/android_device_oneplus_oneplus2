@@ -269,6 +269,7 @@ PRODUCT_PACKAGES += \
     ipacm \
     ipacm-diag \
     IPACM_cfg.xml \
+    wificond \
     hostapd \
     libwpa_client \
     wpa_supplicant \
