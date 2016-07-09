@@ -42,3 +42,5 @@ PRODUCT_SYSTEM_PROPERTY_BLACKLIST += ro.product.model
 TARGET_VENDOR := oneplus
 
 WITH_SU := true
+
+TARGET_UNOFFICIAL_BUILD_ID := BobZhome
