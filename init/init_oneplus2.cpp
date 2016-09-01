@@ -28,9 +28,10 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 
+#include <cutils/properties.h>
 #include "vendor_init.h"
-#include "property_service.h"
 #include "log.h"
 #include "util.h"
 
@@ -39,11 +40,11 @@ void init_variant_properties() {
     char rf_version[PROP_VALUE_MAX];
     int rc;
 
-    rc = property_get("ro.cm.device", device);
+    rc = property_get("ro.cm.device", device, NULL);
     if (!rc || strncmp(device, "oneplus2", 8))
         return;
 
-    property_get("ro.boot.rf_v1", rf_version);
+    property_get("ro.boot.rf_v1", rf_version, NULL);
 
     if (strstr(rf_version, "14")) {
         /* Chinese */
