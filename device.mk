@@ -99,7 +99,7 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     sensors.hal.tof \
-    Snap
+    Camera2
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
