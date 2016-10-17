@@ -1,5 +1,11 @@
-on enable-low-power
+on boot
+    # Configure foreground and background cpuset
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/foreground/boost/cpus 4-7
+    write /dev/cpuset/background/cpus 0
+    write /dev/cpuset/system-background/cpus 0-3
 
+on enable-low-power
     # Ensure at most one A57 is online when thermal hotplug is disabled
     write /sys/devices/system/cpu/cpu5/online 0
     write /sys/devices/system/cpu/cpu6/online 0
@@ -8,8 +14,10 @@ on enable-low-power
     # Limit A57 max freq from msm_perf module in case CPU 4 is offline
     write /sys/module/msm_performance/parameters/cpu_max_freq "4:960000 5:960000 6:960000 7:960000"
 
-    # Disable thermal bcl hotplug to switch governor
+    # Disable thermal
     write /sys/module/msm_thermal/core_control/enabled 0
+
+    # Disable thermal bcl hotplug to switch governor
     write /sys/devices/soc.0/qcom,bcl.62/mode "disable"
     write /sys/devices/soc.0/qcom,bcl.62/hotplug_mask 0
     write /sys/devices/soc.0/qcom,bcl.62/hotplug_soc_mask 0
@@ -47,19 +55,6 @@ on enable-low-power
     # Insert core_ctl module and use conservative paremeters
     insmod /system/lib/modules/hcube.ko
     write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 1
-
-    # Re-enable thermal and BCL hotplug
-    write /sys/module/msm_thermal/core_control/enabled 1
-    write /sys/devices/soc.0/qcom,bcl.62/mode "disable"
-    write /sys/devices/soc.0/qcom,bcl.62/hotplug_mask 192
-    write /sys/devices/soc.0/qcom,bcl.62/hotplug_soc_mask 240
-    write /sys/devices/soc.0/qcom,bcl.62/mode "enable"
-
-    # Configure foreground and background cpuset
-    write /dev/cpuset/foreground/cpus 0-7
-    write /dev/cpuset/foreground/boost/cpus 4-7
-    write /dev/cpuset/background/cpus 0
-    write /dev/cpuset/system-background/cpus 0-3
 
     # Enable low power modes
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
