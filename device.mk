@@ -103,7 +103,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcamera_shim \
     sensors.hal.tof \
-    Camera2
+    Snap
 
 # Connectivity Engine support (CNE)
 PRODUCT_PACKAGES += \
@@ -242,14 +242,13 @@ PRODUCT_PACKAGES += \
     sensors.msm8994 \
     sensors.ssc.wrapper
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf
+
 # Sound configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/Heaven.ogg:system/media/audio/notifications/Heaven.ogg \
     $(LOCAL_PATH)/prebuilt/somebodys.ogg:system/media/audio/ringtones/somebodys.ogg
-
-# Thermal config
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf
 
 # USB
 PRODUCT_PACKAGES += \
