@@ -14,28 +14,23 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(TARGET_SIMULATOR),true)
-
-# HAL module implemenation, not prelinked, and stored in
-# hw/<SENSORS_HARDWARE_MODULE_ID>.<ro.product.board>.so
 include $(CLEAR_VARS)
 
-# LOCAL_MODULE := sensors.herring
 LOCAL_MODULE := sensors.hal.tof
 
 LOCAL_C_INCLUDES:= \
-        kernel/include/linux/input/ \
+    kernel/include/linux/input
 
 LOCAL_MODULE_RELATIVE_PATH := hw
 
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
-LOCAL_SRC_FILES :=                        \
-                sensors.cpp               \
-                SensorBase.cpp            \
-                ProximitySensor.cpp       \
-                InputEventReader.cpp
+LOCAL_SRC_FILES := \
+    sensors.cpp \
+    SensorBase.cpp \
+    ProximitySensor.cpp \
+    InputEventReader.cpp
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_PRELINK_MODULE := false
@@ -62,12 +57,15 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := camera_shim.cpp
+
+LOCAL_SRC_FILES := \
+    camera_shim.cpp \
+    GraphicBuffer.cpp
+
 LOCAL_MODULE := libcamera_shim
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_32_BIT_ONLY := true
-LOCAL_SHARED_LIBRARIES := libgui
+LOCAL_SHARED_LIBRARIES := libbinder libcutils libutils liblog libgui libui
 
 include $(BUILD_SHARED_LIBRARY)
-
-endif # !TARGET_SIMULATOR

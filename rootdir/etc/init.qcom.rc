@@ -41,9 +41,10 @@ on early-fs
     mkdir /persist 0771 system system
 
     mount_all /fstab.qcom
-    export LD_SHIM_LIBS /system/lib/libopcamerahw_interface.so|libcamera_shim.so
 
 on init
+    export LD_SHIM_LIBS "/system/lib/libopcamerahw_interface.so|libcamera_shim.so:/system/lib/libFNVfbEngineLib.so|libcamera_shim.so"
+
     chmod 0644 /proc/cmdline
 
     symlink /sdcard /storage/sdcard0
