@@ -43,7 +43,7 @@ on early-fs
     mount_all /fstab.qcom
 
 on init
-    export LD_SHIM_LIBS "/system/lib/libopcamerahw_interface.so|libcamera_shim.so:/system/lib/libFNVfbEngineLib.so|libcamera_shim.so"
+    export LD_SHIM_LIBS /system/vendor/lib64/lib-imscamera.so|libshim_camera.so
 
     chmod 0644 /proc/cmdline
 
