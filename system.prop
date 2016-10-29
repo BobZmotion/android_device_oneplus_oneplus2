@@ -31,10 +31,8 @@ ro.bluetooth.a4wp=true
 ro.bluetooth.wipower=true
 
 # Camera
-camera.disable_zsl_mode=1
-persist.camera.HAL3.enabled=0
+camera.hal1.packagelist=com.skype.raider,com.whatsapp,com.tencent.mm,com.google.android.GoogleCamera
 persist.camera.cpp.duplication=false
-media.camera.ts.monotonic=0
 #Enable low power video mode for 4K encode
 vidc.debug.perf.mode=2
 vidc.enc.dcvs.extra-buff-count=2
