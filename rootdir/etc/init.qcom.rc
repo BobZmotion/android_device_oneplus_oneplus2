@@ -495,13 +495,13 @@ service perfd /system/vendor/bin/perfd
 service per_mgr /system/bin/pm-service
     class late_start
     user system
-    group system net_raw
+    group system
     writepid /dev/cpuset/system-background/tasks
 
 service per_proxy /system/bin/pm-proxy
     class late_start
     user system
-    group system net_raw
+    group system
     writepid /dev/cpuset/system-background/tasks
     disabled
 
@@ -941,7 +941,7 @@ service cnss-daemon /system/bin/cnss-daemon -n -l
 service loc_launcher /system/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
-    group gps inet net_raw diag net_admin wifi
+    group gps inet diag wifi
 
 service drmdiag /system/bin/drmdiagapp
     class late_start
