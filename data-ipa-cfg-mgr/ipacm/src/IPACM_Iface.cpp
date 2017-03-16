@@ -918,30 +918,37 @@ int IPACM_Iface::ipa_get_if_index
   int * if_index
 )
 {
-  int fd;
-  struct ifreq ifr;
+	int fd;
+	struct ifreq ifr;
 
-  if((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
-  {
-    IPACMERR("get interface index socket create failed \n");
-    return IPACM_FAILURE;
-  }
+	if((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+	{
+		IPACMERR("get interface index socket create failed \n");
+		return IPACM_FAILURE;
+	}
 
-  memset(&ifr, 0, sizeof(struct ifreq));
-  (void)strncpy(ifr.ifr_name, if_name, sizeof(ifr.ifr_name));
-  IPACMDBG_H("interface name (%s)\n", if_name);
+	if(strlen(if_name) >= sizeof(ifr.ifr_name))
+	{
+		IPACMERR("interface name overflows: len %d\n", strlen(if_name));
+		close(fd);
+		return IPACM_FAILURE;
+	}
 
-  if (ioctl(fd,SIOCGIFINDEX , &ifr) < 0)
-  {
-    IPACMERR("call_ioctl_on_dev: ioctl failed, interface name (%s):\n", ifr.ifr_name);
-    close(fd);
-    return IPACM_FAILURE;
-  }
+	memset(&ifr, 0, sizeof(struct ifreq));
+	(void)strlcpy(ifr.ifr_name, if_name, sizeof(ifr.ifr_name));
+	IPACMDBG_H("interface name (%s)\n", if_name);
 
-  *if_index = ifr.ifr_ifindex;
-  IPACMDBG_H("Interface index %d\n", *if_index);
-  close(fd);
-  return IPACM_SUCCESS;
+	if(ioctl(fd,SIOCGIFINDEX , &ifr) < 0)
+	{
+		IPACMERR("call_ioctl_on_dev: ioctl failed, interface name (%s):\n", ifr.ifr_name);
+		close(fd);
+		return IPACM_FAILURE;
+	}
+
+	*if_index = ifr.ifr_ifindex;
+	IPACMDBG_H("Interface index %d\n", *if_index);
+	close(fd);
+	return IPACM_SUCCESS;
 }
 
 size_t IPACM_Iface::strlcpy(char *dest, const char *src, size_t n)
