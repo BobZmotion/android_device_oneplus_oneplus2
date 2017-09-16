@@ -31,19 +31,22 @@ import init.qcom.usb.rc
 on early-init
     symlink /data/tombstones /tombstones
 
-on early-fs
     mkdir /firmware 0771 system system
     mkdir /bt_firmware 0771 system system
-    mkdir /persist 0771 system system
 
+on fs
     mount_all /fstab.qcom
+    restorecon_recursive /persist
 
 on init
     export LD_SHIM_LIBS "/system/vendor/lib64/lib-imscamera.so|libshim_ims-camera.so:/system/lib/libopcamerahw_interface.so|libshim_camera.so:/system/lib/libFNVfbEngineLib.so|libshim_camera.so"
 
     chmod 0644 /proc/cmdline
-
     symlink /sdcard /storage/sdcard0
+
+    # Set permissions for persist partition
+    mkdir /persist 0771 system system
+    mkdir /persist/data 0700 system system
 
     # Slow Motion Scheduling Group
     mkdir /dev/cpuctl/smsg
